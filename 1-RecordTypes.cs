@@ -3,7 +3,8 @@ using Xunit;
 
 namespace csharp_koans
 {
-
+    [Trait("Koans", "1")]
+    // Doc : https://docs.microsoft.com/fr-fr/dotnet/csharp/whats-new/csharp-9#record-types
     public class RecordTypes
     {
         [Fact]
@@ -45,6 +46,7 @@ namespace csharp_koans
         {
             // Record can be created using the new with keyword.
             // Properties can be set only at initialization, thanks to init keyword.
+            // https://docs.microsoft.com/fr-fr/dotnet/csharp/whats-new/csharp-9#init-only-setters
             var aDuck = new Duck("Bob", 35);
             var anotherDuck = aDuck with { Name = "Dylan" };
 
@@ -59,6 +61,7 @@ namespace csharp_koans
             // Record can be declared in a more concise way.
             var aProduct = new Product(12, "Webcam", 12.5m);
 
+            //  Deconstruct method is generated for positionnal records.
             var (id, _, priceVariable) = aProduct;
 
             // Fix the assertion

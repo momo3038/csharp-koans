@@ -4,6 +4,7 @@ using Xunit;
 
 namespace csharp_koans
 {
+    [Trait("Koans", "3")]
     public class Miscellaneous
     {
         [Fact]
@@ -11,8 +12,12 @@ namespace csharp_koans
         {
             France france = new();
 
+            // Also working with parameters
+            Country country = new("China");
+
             // Fix the assertion
             Assert.IsType<int>(france);
+            Assert.Equal("Tokyo", country.name);
         }
 
         [Fact]
@@ -21,7 +26,7 @@ namespace csharp_koans
             // ??= Assign the value only if left-hand operation is null
             List<Country> countries = null;
 
-            (countries ??= new()).Add(new());
+            (countries ??= new()).Add(new("China"));
 
             // Fix the assertion
             Assert.True(countries.Count == 0);
@@ -79,9 +84,9 @@ namespace csharp_koans
         }
 
 
-        public record Country;
+        public record Country(string name);
 
-        public record France: Country;
+        public record France() : Country("France");
     }
 
 }

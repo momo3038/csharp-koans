@@ -5,6 +5,7 @@ namespace csharp_koans
 {
     // Nice tutorial about pattern matching using C# 7, 8 and 9
     // https://docs.microsoft.com/fr-fr/dotnet/csharp/tutorials/pattern-matching
+    [Trait("Koans", "2")]
     public class PatternMatching
     {
         [Fact]
@@ -46,6 +47,28 @@ namespace csharp_koans
             {
                 var (_, _, population) when population < 1000000 => "Tiny",
                 var (_, _, population) when population > 1000000 => "Big",
+                _ => "Unknown"
+            };
+
+
+        [Fact]
+        public void PatternMatchingWithLogicalPattenrs()
+        {
+            var france = new Country("Groland", Capital.Groville, 3);
+
+            var size = GetSizeOfCountryOtherWay(france);
+
+            // Fix the assertion
+            Assert.Equal("Tiny", size);
+        }
+
+        private string GetSizeOfCountryOtherWay(Country country) =>
+            country.population switch
+            {
+                0 => "Really ?",
+                1 or 2 or 3 => "No way, cannot exist !",
+                > 3 and < 1000000 => "Tiny",
+                > 1000000 => "Big",
                 _ => "Unknown"
             };
 
@@ -109,11 +132,11 @@ namespace csharp_koans
             // Fix the assertion
             Assert.True(isLetterOrExclamation('?'));
 
-        }     
+        }
 
         public record Country(string name, Capital capital, int population);
 
-        public record FakeCountry(string name, Capital capital, int population): Country(name, capital, population);
+        public record FakeCountry(string name, Capital capital, int population) : Country(name, capital, population);
 
         public enum Capital
         {
